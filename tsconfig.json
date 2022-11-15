@@ -1,0 +1,17 @@
+{
+  "extends": "@vue/tsconfig/tsconfig.web.json",
+  "include": ["src/interface/serials.d.ts","src/interface/discover.d.ts","src/interface/main.d.ts","env.d.ts", "src/**/*", "src/**/*.vue"],
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    },
+    "types": [ "vite/client" ],
+  },
+  
+  "references": [
+    {
+      "path": "./tsconfig.config.json"
+    }
+  ]
+}
