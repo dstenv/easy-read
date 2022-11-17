@@ -24,7 +24,7 @@
         </div>
         <div class="login-type">
             <span></span>
-            <span @click="router.push('/register')">注册</span>
+            <span @click="emits('showRegister', true)">注册</span>
         </div>
     </div>
 </template>
@@ -37,7 +37,7 @@ import {useRouter} from 'vue-router'
 const timer = ref<number | null>(null)
 const router = useRouter()
 
-
+const emits = defineEmits(['showRegister'])
 
 const showPwd = ref<boolean>(false)
 const showClose = ref<Array<boolean>>([false,false])
@@ -74,7 +74,8 @@ const validLogin = () => {
         else {
             console.log('可以登录');
             localStorage.token = JSON.stringify(findUser[0].token)
-            router.replace('/main/home')
+            // router.replace('/main/home')
+            router.back()
         }
     }else {
         // 跳转到注册页面

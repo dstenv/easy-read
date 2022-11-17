@@ -1,13 +1,46 @@
 <script setup lang="ts">
+import { faviorArtist } from '@/apis/utils';
 import { useShareStore } from '@/stores/counter'
+import { computed } from '@vue/reactivity';
 import { storeToRefs } from 'pinia';
-import { ref } from 'vue';
+import { nextTick, onMounted, ref } from 'vue';
+import { useRouter } from 'vue-router';
+import { getIconUrl } from '@/apis/utils'
+import useCheckHave from '@/hooks/useCheckHave'
 
 const props = defineProps<{
-    data: homeInit | undefined
+    data: homeInit
 }>()
 
-const defaultImg = ref<string>('./src/assets/Image/ic_default_image.png')
+const date = computed(() => {
+    if(props.data) {
+        return props.data.post_date.split(' ')[0]
+    }
+})
+
+const collectPic = ref<{
+    active: string
+    inActive: string
+}>({
+    active: getIconUrl('bubble_collected.png'),
+    inActive: getIconUrl('bubble_collect.png')
+})
+
+
+const { isHave,isHaveFun } = useCheckHave('pic',props.data?.id as string)
+
+
+const setLocal = () => {
+    isHave.value = !isHave.value
+    faviorArtist(router,'pic',
+    {id: props.data?.id,forward: props.data?.forward, post_date:date.value, img_url: props.data?.img_url, volume: props.data?.volume},
+    !isHave.value)
+}
+
+onMounted(() => {
+    isHaveFun()
+})
+
 
 const shareStore = useShareStore()
 const { showShare } = storeToRefs(shareStore)
@@ -16,6 +49,8 @@ const setShare = ():void => {
     shareStore.setShowShare(true) 
     shareStore.setShareUrl(props.data?.share_url as string)
 }
+
+const router = useRouter()
 
 </script>
 <template>
@@ -38,7 +73,9 @@ const setShare = ():void => {
                     <img src="@/assets/Icon/diary_icon.png" >
                 </div>
                 <div>
-                    <img src="@/assets/Icon/bubble_collect.png" >
+                    <img :src="isHave? collectPic.active:collectPic.inActive" 
+                        @click="setLocal"
+                    >
                 </div>
                 <div>
                     <img src="@/assets/Icon/feeds_laud_default.png" >

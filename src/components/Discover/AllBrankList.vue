@@ -53,6 +53,7 @@ const props = defineProps<{
     }
     img {
         width: 60rem;
+        height: 60rem;
         border-radius: 10rem;
         display: block;
     }

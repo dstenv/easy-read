@@ -40,6 +40,7 @@
 </template>
 
 <script setup lang="ts">
+import { getImageUrl } from '@/apis/utils';
 import { useAudioStore } from '@/stores/counter';
 import { computed } from '@vue/reactivity';
 import { storeToRefs } from 'pinia';
@@ -82,8 +83,8 @@ const playImg = ref<{
     inActive: string,
     active: string
 }>({
-    inActive: '/src/assets/Image/player_play.png',
-    active: '/src/assets/Image/player_pause.png'
+    inActive: getImageUrl('player_play.png'),
+    active: getImageUrl('player_pause.png')
 })
 
 watch(isPlay, (newv) => {

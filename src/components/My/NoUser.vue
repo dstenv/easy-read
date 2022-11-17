@@ -8,7 +8,7 @@
         <main>
             <section class="sec1">
                 <img src="/src/assets/Image/sign_up.png" @click="checkbox? router.push('/login'):Toast('登录/注册前情先阅读并同意相关协议')">
-                <p>还没有账号?点击<a @click="checkbox? router.push('/register'):Toast('登录/注册前情先阅读并同意相关协议')">注册</a></p>
+                <p>还没有账号?点击<a @click="checkbox? router.push({path: '/login',query: {registerText: '注册'}}):Toast('登录/注册前情先阅读并同意相关协议')">注册</a></p>
                 <div class="privacy">
                     <input type="checkbox" v-model="checkbox" class="check">
                     <div>

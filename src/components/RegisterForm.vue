@@ -29,6 +29,7 @@ import { ref, watch } from 'vue';
 import {getUuidCode} from '@/LoginValid'
 import router from '@/router';
 import { Toast } from 'vant';
+import { getImageUrl } from '@/apis/utils';
 
 const user = ref<localUser>({
     number: '',
@@ -38,6 +39,8 @@ const user = ref<localUser>({
 
 const clickBtn = ref<boolean>(false)
 const showClose = ref<Array<boolean>>([false,false])
+
+const emits = defineEmits(['closeRegister'])
 
 const registerUser = ():void => {
     user.value.token = getUuidCode()
@@ -64,7 +67,7 @@ const registerUser = ():void => {
     }
     Toast.success('注册成功')
     setTimeout(() => {
-        router.replace('/login')
+        emits('closeRegister', false)
     }, 4);
     // localStorage.token = JSON.stringify(user.value.token)
 }
@@ -74,8 +77,8 @@ const showPwd = ref<boolean>(false)
     active: string,
     inActive: string
 }>({
-    inActive: '/src/assets/Image/phone_password_invisible.png',
-    active: '/src/assets/Image/phone_password_visible.png'
+    inActive: getImageUrl('phone_password_invisible.png'),
+    active: getImageUrl('phone_password_visible.png')
 })
 const checkbox = ref<boolean>(false)
 

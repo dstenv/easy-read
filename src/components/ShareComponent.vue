@@ -4,6 +4,7 @@ import { storeToRefs } from 'pinia';
 import { useShareStore } from '@/stores/counter'
 import Clipboard from 'clipboard'
 import { Toast } from 'vant';
+import { getIconUrl } from '@/apis/utils';
 
 const shareStore = useShareStore()
 const { showShare,shareUrl } = storeToRefs(shareStore)
@@ -13,30 +14,30 @@ const shareLinks = ref<Array<shareLink>>([
         id: 1,
 
         text: '朋友圈',
-        img: '/src/assets/Icon/bubble_moment.png',
+        img: getIconUrl('bubble_moment.png'),
     },
     {
         id: 2,
 
         text: 'WeChat',
-        img: '/src/assets/Icon/bubble_wechat.png',
+        img: getIconUrl('bubble_wechat.png'),
     },
     {
         id: 3,
         text: '微博',
-        img: '/src/assets/Icon/bubble_weibo.png',
+        img: getIconUrl('bubble_weibo.png'),
     },
     {
 
         id: 4,
         text: 'QQ',
-        img: '/src/assets/Icon/bubble_qq.png',
+        img: getIconUrl('bubble_qq.png'),
     },
     {
         id: 5,
 
         text: '链接',
-        img: '/src/assets/Icon/bubble_copy_link.png',
+        img: getIconUrl('bubble_copy_link.png'),
     },
 ])
 

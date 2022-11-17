@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { getIconUrl } from '@/apis/utils';
 import { ref } from 'vue';
 
 interface floatImgType {
@@ -11,29 +12,29 @@ interface floatImgType {
             name: 'home',
             path: '/main/home',
             // 图片以/src开头即可s
-            inactiveIcon: '/src/assets/Icon/icon_home.png',
-            activeIcon: '/src/assets/Icon/icon_home_selected.png'
+            inactiveIcon: getIconUrl('icon_home.png'),
+            activeIcon: getIconUrl('icon_home_selected.png')
         },
         {
             name: 'discover',
             path: '/main/discover',
             // 图片以/src开头即可s
-            inactiveIcon: '/src/assets/Icon/icon_dicover.png',
-            activeIcon: '/src/assets/Icon/icon_discover_selected.png'
+            inactiveIcon: getIconUrl('icon_dicover.png'),
+            activeIcon: getIconUrl('icon_discover_selected.png')
         },
         {
             name: 'serials',
             path: '/main/serials',
             // 图片以/src开头即可s
-            inactiveIcon: '/src/assets/Icon/icon_serial.png',
-            activeIcon: '/src/assets/Icon/icon_serial_selected.png'
+            inactiveIcon: getIconUrl('icon_serial.png'),
+            activeIcon: getIconUrl('icon_serial_selected.png')
         },
         {
             name: 'my',
             path: '/main/my',
             // 图片以/src开头即可s
-            inactiveIcon: '/src/assets/Icon/icon_me.png',
-            activeIcon: '/src/assets/Icon/icon_me_selected.png'
+            inactiveIcon: getIconUrl('icon_me.png'),
+            activeIcon: getIconUrl('icon_me_selected.png')
         }
     ])
     const active = ref(0)

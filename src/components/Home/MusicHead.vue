@@ -3,7 +3,7 @@
         <header>
             <nav>
                 <img src="/src/assets/Icon/h5_qr_back.png" @click="router.back()">
-                <img src="/src/assets/Image/favourite_gray.png" @click="faviorArtist(router)">
+                <img :src="isHave? collectPic.active:collectPic.inActive" @click="setLocal">
             </nav>
         </header>
         <main :class="{'movie-main': type == 'movie'}">
@@ -32,7 +32,8 @@ import { computed } from '@vue/reactivity';
 import { storeToRefs } from 'pinia';
 import { onMounted, ref } from 'vue'
 import { useRouter } from 'vue-router';
-import { faviorArtist } from '@/apis/utils'
+import { faviorArtist, getIconUrl, getImageUrl } from '@/apis/utils'
+import useCheckHave from '@/hooks/useCheckHave'
 
 const props = defineProps<{
     id: string,
@@ -59,6 +60,22 @@ const isCurrentMusic = computed(() => {
     return props.id == playArtist.value?.id
 })
 
+const { isHave,isHaveFun } = useCheckHave('music',props.id as string)
+
+const collectPic = ref<{
+    active: string
+    inActive: string
+}>({
+    active: getIconUrl('bubble_collected.png'),
+    inActive: getImageUrl('favourite_gray.png')
+})
+
+const setLocal = () => {
+    isHave.value = !isHave.value
+    faviorArtist(router,props.type as string, {id: props.id,img: props.music_img || getImageUrl('ic_default_image.png'),title: props.title, subtitle: props.description},!isHave.value)
+}
+
+
 const audioStore = useAudioStore()
 
 const { playArtist,isPlay } = storeToRefs(audioStore)
@@ -67,8 +84,8 @@ const playIcon = ref<{
     active: string,
     inActive: string
 }>({
-    active: '/src/assets/Icon/play.png',
-    inActive: '/src/assets/Icon/pause.png'
+    active: getIconUrl('play.png'),
+    inActive: getIconUrl('pause.png')
 })
 
 onMounted(() => {
@@ -81,6 +98,7 @@ onMounted(() => {
             type: props.type
         })
     }
+    isHaveFun()
 })
 
 const router = useRouter()

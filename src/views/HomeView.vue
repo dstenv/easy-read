@@ -10,6 +10,7 @@ import { onMounted, watch } from 'vue'
 import { useCounterStore } from '@/stores/counter'
 import { storeToRefs } from 'pinia'
 import { Toast } from 'vant';
+import NoData from '@/components/NoData.vue' 
 const isSelectTime = ref(false)
 
 const store = useCounterStore()
@@ -144,7 +145,8 @@ watch(selTime, (newv, oldv) => {
             <DateTimeVue :isSelectTime="isSelectTime" :selTime="selTime" :homeWeather="homeWeather" @changeSel="showTime" @changeselTime="changeselTime"/>
         </header>
         <main>
-            <FirstDataVue :data="OneData"/>
+            <NoData v-if="!OneData || !HomeData" :pic="'/src/assets/Image/no_message_pic.png'"/>
+            <FirstDataVue v-if="OneData" :data="OneData as homeInit"/>
             <MainDataVue 
                 v-for="(item,index) in HomeData" :key="index"
                 :list-data="item" @click="router.push({path: '/pagedetail', query: {type: item.dataType, id: item.id}})"

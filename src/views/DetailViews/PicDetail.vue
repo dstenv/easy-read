@@ -7,7 +7,7 @@
                 <img src="/src/assets/Icon/share_image.png" @click="setShare(picData?.share_url as string)">
             </nav>
         </header>
-        <FirstDataVue :data="picData"/>
+        <FirstDataVue v-if="picData" :data="picData"/>
     </div>
 </template>
 

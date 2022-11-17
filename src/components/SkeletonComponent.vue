@@ -6,11 +6,8 @@ const props = defineProps<{
 }>()
 
 
-interface numData {
 
-}
-
-const numArr = computed(():Array<numData> => {
+const numArr = computed(():Array<number> => {
     return new Array(props.nums + 1)
 })
 

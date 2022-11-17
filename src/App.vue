@@ -66,6 +66,7 @@ const route = useRoute()
         'picdetail',
         'specaildetail',
         'allbrank',
+        'collectlist'
     ])
 
     // picdetail-move

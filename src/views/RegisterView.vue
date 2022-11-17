@@ -1,13 +1,8 @@
 <template>
     <div class="register">
-        <header>
-            <img src="/src/assets/Image/login_head.png">
-            <img src="/src/assets/Image/phone_back_white.png" @click="router.back()" class="back">
-            <img src="/src/assets/Image/ali_login_one_logo.png" class="logo">
-        </header>
         <main>
             <section>
-                <RegisterFormVue />
+                
             </section>
         </main>
     </div>
@@ -16,7 +11,6 @@
 <script setup lang="ts">
 
 
-import RegisterFormVue from '@/components/RegisterForm.vue'
 
 import {useRouter} from 'vue-router'
 const router = useRouter()
@@ -31,6 +25,7 @@ const router = useRouter()
         width: 100%;
         img {
             width: 100%;
+            display: block;
         }
         .back,
         .logo {

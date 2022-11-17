@@ -2,7 +2,7 @@
 import { ref } from 'vue';
 import { useShareStore,useAudioStore } from '@/stores/counter'
 import { storeToRefs } from 'pinia';
-import { setAudioArtist } from '@/apis/utils'
+import { getIconUrl, setAudioArtist } from '@/apis/utils'
 import { computed } from '@vue/reactivity';
 
 const props = defineProps<{
@@ -26,8 +26,8 @@ const playIcon = ref<{
     play: string,
     paused:string
 }>({
-    play: '/src/assets/Icon/songlist_play_white.png',
-    paused: '/src/assets/Icon/feeds_radio_pause.png'
+    play: getIconUrl('songlist_play_white.png'),
+    paused: getIconUrl('feeds_radio_pause.png')
 })
 
 const isCurrentRadio = computed(() => {

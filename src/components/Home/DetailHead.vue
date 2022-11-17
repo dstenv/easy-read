@@ -4,7 +4,7 @@
             <nav>
                 <img src="/src/assets/Icon/h5_qr_back.png" @click="router.back()">
                 <span>{{props.type}}</span>
-                <img src="/src/assets/Image/favourite_gray.png" @click="faviorArtist(router)">
+                <img :src="isHave? collectPic.active:collectPic.inActive" @click="setLocal">
             </nav>
         </header>
         <main>
@@ -49,7 +49,8 @@ import { computed } from '@vue/reactivity';
 import { storeToRefs } from 'pinia';
 import { watch, ref, onMounted } from 'vue';
 import { useRouter } from 'vue-router'
-import { faviorArtist } from '@/apis/utils'
+import { faviorArtist, getImageUrl,getIconUrl } from '@/apis/utils'
+import useCheckHave from '@/hooks/useCheckHave'
 
 const router = useRouter()
 
@@ -71,8 +72,8 @@ const radioIcon = ref<{
     inActive:string,
     active: string
 }>({
-    inActive: '/src/assets/Image/feeds_radio_play.png',
-    active: '/src/assets/Image/feeds_radio_pause.png'
+    inActive: getImageUrl('feeds_radio_play.png'),
+    active: getImageUrl('feeds_radio_pause.png')
 })
 
 const audioStore = useAudioStore()
@@ -99,6 +100,7 @@ onMounted(() => {
             type: props.engType
         })
     }
+    isHaveFun()
 })
 
 watch(isPlay, (newv) => {
@@ -114,6 +116,24 @@ watch(isPlay, (newv) => {
     }
 })
 
+const { isHave,isHaveFun } = props.cover? useCheckHave('radio',props.id as string):useCheckHave('artist',props.id as string)
+
+const collectPic = ref<{
+    active: string
+    inActive: string
+}>({
+    active: getIconUrl('bubble_collected.png'),
+    inActive: getImageUrl('favourite_gray.png')
+})
+
+const setLocal = () => {
+    isHave.value = !isHave.value
+    if(props.cover) {
+        faviorArtist(router,'radio', {id: props.id,img: props.cover,title: props.title, subtitle: props.author},!isHave.value)
+    }else {
+        faviorArtist(router,'artist', {id: props.id,title: props.title, author: props.author,type: props.engType},!isHave.value)
+    }
+}
 
 
 </script>

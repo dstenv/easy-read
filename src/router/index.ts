@@ -99,6 +99,14 @@ const router = createRouter({
       }
     },
     {
+      name: 'collectlist',
+      path: '/collectlist/:type',
+      component: () => import('@/views/MyCollectList.vue'),
+      meta: {
+        keepAlive: false,
+      }
+    },
+    {
       name: 'login',
       path: '/login',
       component: LoginViewVue,

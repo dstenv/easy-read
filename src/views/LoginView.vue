@@ -7,30 +7,47 @@
         </header>
         <main>
             <section>
-                <LoginFormVue />
-            </section>
+                <LoginFormVue v-if="!isRegister" @showRegister="toggleRegister"/>
+                <RegisterFormVue v-if="isRegister" @closeRegister="toggleRegister"/>
+            </section> 
         </main>
         <footer>
             <span>其他登录方式</span>
-            <div class="login-type">
-                <img src="/src/assets/Icon/bubble_wechat.png" >
-                <img src="/src/assets/Icon/bubble_weibo.png" >
-                <img src="/src/assets/Icon/bubble_qq.png" >
-            </div>
+                <div class="login-type">
+                    <img src="/src/assets/Icon/bubble_wechat.png" >
+                    <img src="/src/assets/Icon/bubble_weibo.png" >
+                    <img src="/src/assets/Icon/bubble_qq.png" >
+                </div>
         </footer>
     </div>
 </template>
 
 <script setup lang="ts">
 import LoginFormVue from '@/components/Login/LoginForm.vue';
+import { onBeforeMount, ref } from 'vue';
+import RegisterFormVue from '@/components/RegisterForm.vue'
 
-import {useRouter} from 'vue-router'
+import {useRoute, useRouter} from 'vue-router'
 const router = useRouter()
+const route = useRoute()
+const isRegister = ref<boolean>(false)
+
+onBeforeMount(() => {
+    // console.log(route.query);
+    isRegister.value = (route.query.registerText as string)? true:false
+})
+
+const toggleRegister = (value: boolean) => {
+    isRegister.value = value
+}
 
 </script>
 
 <style lang="scss" scoped>
 .login {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
     header {
         position: relative;
         width: 100%;
@@ -55,7 +72,7 @@ const router = useRouter()
         }
     }
     footer {
-        position: fixed;
+        position: absolute;
         bottom: 0;
         width: 100%;
         padding-bottom: 20rem;

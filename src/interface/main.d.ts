@@ -15,8 +15,11 @@ interface homeBase {
 
 // 首页第一条数据初始数据结构
 interface homeInit extends homeBase {
+    id:string,
     words_info: string,
     pic_info: string,
+    post_date: string
+    volume: string
 }
 
 // 首页其他数据的数据结构 
@@ -126,4 +129,26 @@ interface localUser {
     number: string,
     pwd: string,
     token: string
+}
+
+interface localPic {
+    id: string | undefined,
+    forward: string | undefined,
+    post_date: string | undefined,
+    img_url: string | undefined,
+    volume: string | undefined
+}
+
+interface localMusic {
+    id: string | undefined,
+    img: string | undefined
+    title: string | undefined
+    subtitle: string | undefined
+}
+
+interface localArtist {
+    id: string | undefined
+    title: string | undefined
+    author: string | undefined,
+    type: string | undefined
 }
